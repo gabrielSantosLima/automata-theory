@@ -12,11 +12,14 @@ class DFA:
     
     def compute(self, w: str) -> bool:
         current_state_index = self.q0
-        for a in range(len(w)):
-            current_state_index = self.δ(current_state_index, w[a])
+        for a in w:
+            current_state_index = self.δ(current_state_index, a)
             if current_state_index == None:
                 return False
         return current_state_index in self.f
+    
+    def accept_or_reject(self, w:str):
+        return 'accept' if self.compute(w) else 'reject'
 
 def δ1(state_index: int, symbol: str) -> int| None:
     transactions = {
@@ -38,11 +41,11 @@ def main():
     q0 = 0
     dfa = DFA(q, Σ, δ1, q0, f)
 
-    print(f"011 {'accept' if dfa.compute('011') else 'reject'}.") # should accept
-    print(f"0101 {'accept' if dfa.compute('0101') else 'reject'}.") # should accept
-    print(f"0 {'accept' if dfa.compute('0') else 'reject'}.") # should reject
-    print(f"000000000 {'accept' if dfa.compute('000000000') else 'reject'}.") # should reject
-    print(f"010 {'accept' if dfa.compute('010') else 'reject'}.") # should reject
-    print(f"'' {'accept' if dfa.compute('') else 'reject'}.") # should reject
+    print(f"011 {dfa.accept_or_reject('011')}.") # should accept
+    print(f"0101 {dfa.accept_or_reject('0101')}.") # should accept
+    print(f"0 {dfa.accept_or_reject('0')}.") # should reject
+    print(f"000000000 {dfa.accept_or_reject('000000000')}.") # should reject
+    print(f"010 {dfa.accept_or_reject('010')}.") # should reject
+    print(f"'' {dfa.accept_or_reject('')}.") # should reject
 
 main()

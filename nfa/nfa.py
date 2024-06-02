@@ -43,7 +43,7 @@ class NFA:
                 return True
         return False
     
-    def compute_str(self, w:str):
+    def accept_or_reject(self, w:str):
         return 'accept' if self.compute(w) else 'reject'
                     
 def δ1(state_index: int, symbol: str) -> list[int]:
@@ -66,11 +66,11 @@ def main():
     q0 = 0
     dfa = NFA(q, Σ, δ1, q0, f)
 
-    print(f"011 {dfa.compute_str('011')}.") # should accept
-    print(f"0111111111111 {dfa.compute_str('0111111111111')}.") # should accept
-    print(f"010110 {dfa.compute_str('010110')}.") # should accept
-    print(f"01 {dfa.compute_str('01')}.") # should reject
-    print(f"0 {dfa.compute_str('0')}.") # should reject
-    print(f"'' {dfa.compute_str('')}.") # should reject
+    print(f"011 {dfa.accept_or_reject('011')}.") # should accept
+    print(f"0111111111111 {dfa.accept_or_reject('0111111111111')}.") # should accept
+    print(f"010110 {dfa.accept_or_reject('010110')}.") # should accept
+    print(f"01 {dfa.accept_or_reject('01')}.") # should reject
+    print(f"0 {dfa.accept_or_reject('0')}.") # should reject
+    print(f"'' {dfa.accept_or_reject('')}.") # should reject
 
 main()
